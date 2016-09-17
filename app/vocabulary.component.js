@@ -13,15 +13,15 @@ var vocabulary_services_1 = require('./vocabulary.services');
 var word_component_1 = require('./word.component');
 var VocabularyAppComponent = (function () {
     function VocabularyAppComponent(vocabularyServices) {
+        this.index = 0;
         this.vocabularyWords = vocabularyServices.getVocabulary();
-        console.log("Vocabulary words", this.vocabularyWords);
-        this.vocabularyWord = this.vocabularyWords[0];
-        console.log("Word", this.vocabularyWord);
+        //console.log("Vocabulary words", this.vocabularyWords);
+        this.vocabularyWord = this.vocabularyWords[this.index];
     }
     VocabularyAppComponent = __decorate([
         core_1.Component({
             selector: 'vocabulary',
-            template: "\n        <div class=\"container\">\n            <h1>Vocabulary 3</h1>\n            <div class=\"row\">\n                <div class=\"col-sm-6 col-md-4\">\n                    <vocabulary-word [word]=\"vocabularyWord\"></vocabulary-word>    \n                    <nav aria-label=\"...\">\n                        <ul class=\"pager\">\n                            <li class=\"previous disabled\">\n                                <a href=\"#\">\n                                    <span aria-hidden=\"true\">&larr;</span> Anterior\n                                </a>\n                            </li>\n                            <li class=\"next\">\n                                <a href=\"#\">Siguiente \n                                    <span aria-hidden=\"true\">&rarr;</span>\n                                </a>\n                            </li>\n                        </ul>\n                    </nav>\n                </div>\n            </div>\n        </div>\n        ",
+            template: "\n        <div class=\"container\">\n            <h1>Vocabulary 3</h1>\n            <div class=\"row\">\n                <div class=\"col-sm-6 col-md-4\">\n                    <vocabulary-word [word]=\"vocabularyWord\"></vocabulary-word>    \n                    <nav aria-label=\"...\">\n                        <ul class=\"pager\">\n                            <li *ngIf=\"index > 0\" class=\"previous disabled\">\n                                <a href=\"#\">\n                                    <span aria-hidden=\"true\">&larr;</span> Anterior\n                                </a>\n                            </li>\n                            <li *ngIf=\"index < vocabularyWords.length - 1\" class=\"next\">\n                                <a href=\"#\">Siguiente \n                                    <span aria-hidden=\"true\">&rarr;</span>\n                                </a>\n                            </li>\n                        </ul>\n                    </nav>\n                </div>\n            </div>\n        </div>\n        ",
             directives: [word_component_1.WordComponent],
             providers: [vocabulary_services_1.VocabularyService],
         }), 

@@ -11,12 +11,12 @@ import {WordComponent} from './word.component';
                     <vocabulary-word [word]="vocabularyWord"></vocabulary-word>    
                     <nav aria-label="...">
                         <ul class="pager">
-                            <li class="previous disabled">
+                            <li *ngIf="index > 0" class="previous disabled">
                                 <a href="#">
                                     <span aria-hidden="true">&larr;</span> Anterior
                                 </a>
                             </li>
-                            <li class="next">
+                            <li *ngIf="index < vocabularyWords.length - 1" class="next">
                                 <a href="#">Siguiente 
                                     <span aria-hidden="true">&rarr;</span>
                                 </a>
@@ -31,14 +31,13 @@ import {WordComponent} from './word.component';
     providers: [VocabularyService],
 })
 export class VocabularyAppComponent {
-
+    index = 0;
     vocabularyWords;
     vocabularyWord;
     constructor(vocabularyServices : VocabularyService) {
         this.vocabularyWords = vocabularyServices.getVocabulary();
-        console.log("Vocabulary words", this.vocabularyWords);
-        this.vocabularyWord = this.vocabularyWords[0];
-        console.log("Word", this.vocabularyWord);
+        //console.log("Vocabulary words", this.vocabularyWords);
+        this.vocabularyWord = this.vocabularyWords[this.index];
         
     }
 }
