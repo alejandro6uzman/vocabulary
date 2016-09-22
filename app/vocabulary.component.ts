@@ -5,19 +5,19 @@ import {WordComponent} from './word.component';
     selector: 'vocabulary',
     template: `
         <div class="container">
-            <h1>Vocabulary 3</h1>
+            <h1>Vocabulary 5</h1>
             <div class="row">
-                <div class="col-sm-6 col-md-4">
+                <div class="col-sm-8 col-md-6">
                     <vocabulary-word [word]="vocabularyWord"></vocabulary-word>    
                     <nav aria-label="...">
                         <ul class="pager">
-                            <li *ngIf="index > 0" class="previous disabled">
-                                <a href="#">
+                            <li *ngIf="index > 0" class="previous">
+                                <a (click)="previous()">
                                     <span aria-hidden="true">&larr;</span> Anterior
                                 </a>
                             </li>
                             <li *ngIf="index < vocabularyWords.length - 1" class="next">
-                                <a href="#">Siguiente 
+                                <a (click)="next()">Siguiente 
                                     <span aria-hidden="true">&rarr;</span>
                                 </a>
                             </li>
@@ -36,8 +36,18 @@ export class VocabularyAppComponent {
     vocabularyWord;
     constructor(vocabularyServices : VocabularyService) {
         this.vocabularyWords = vocabularyServices.getVocabulary();
-        //console.log("Vocabulary words", this.vocabularyWords);
         this.vocabularyWord = this.vocabularyWords[this.index];
-        
     }
+
+    // Avanza en la siguiente palabra del vocabulario
+    public next() : void {
+        this.index++;
+        this.vocabularyWord = this.vocabularyWords[this.index];
+    }
+
+    public previous() : void {
+        this.index--;
+        this.vocabularyWord = this.vocabularyWords[this.index];
+    }
+    
 }
